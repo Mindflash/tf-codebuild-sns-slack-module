@@ -43,16 +43,18 @@ resource "aws_cloudwatch_event_target" "codebuild_sns_slack_state" {
   input = ""
 }
 
+# TODO: Enable below, but make configurable
+
 # define a cloudwatch event that captures all codebuild build state changes
-resource "aws_cloudwatch_event_rule" "codebuild_sns_slack_phase" {
-  name          = "${var.name}-build-phase"
-  description   = "send codebuild build state changes to SNS"
-  event_pattern = "${file("${path.module}/event-phase-change.json")}"
-}
+# resource "aws_cloudwatch_event_rule" "codebuild_sns_slack_phase" {
+#   name          = "${var.name}-build-phase"
+#   description   = "send codebuild build state changes to SNS"
+#   event_pattern = "${file("${path.module}/event-phase-change.json")}"
+# }
 
 # connect above event rule with above sns topic
-resource "aws_cloudwatch_event_target" "codebuild_sns_slack_phase" {
-  rule  = "${aws_cloudwatch_event_rule.codebuild_sns_slack_phase.name}"
-  arn   = "${aws_sns_topic.codebuild_sns_slack.arn}"
-  input = ""
-}
+# resource "aws_cloudwatch_event_target" "codebuild_sns_slack_phase" {
+#   rule  = "${aws_cloudwatch_event_rule.codebuild_sns_slack_phase.name}"
+#   arn   = "${aws_sns_topic.codebuild_sns_slack.arn}"
+#   input = ""
+# }
